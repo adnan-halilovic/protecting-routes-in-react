@@ -2,6 +2,8 @@ import About from '../../features/about/about';
 import Contact from '../../features/contact/contact';
 import Home from '../../features/home/home';
 import NotFound from '../../features/not-found/not-found';
+import { userRoles } from './constants';
+import ProtectedRoute from './protected-route';
 import appRoutes from './routes';
 
 const routesConfig = [
@@ -11,7 +13,11 @@ const routesConfig = [
   },
   {
     path: appRoutes.ABOUT,
-    element: <About />,
+    element: (
+      <ProtectedRoute expectedRoles={[userRoles.editor]}>
+        <About />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: appRoutes.ABOUT_HOME,
